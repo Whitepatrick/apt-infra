@@ -1,0 +1,6 @@
+---
+db_user: zaphod
+db_name: zaphod
+db_password: zaphod
+
+update_apt_cache: true

@@ -1,0 +1,10 @@
+[storage]
+picl-pidrive	ansible_connection=ssh	ansible_user=zaphod	ansible_ssh_private_key_file=/home/zaphod/.ssh/id_rsa	ansible_become=true
+
+[docker]
+picl-docker-01	ansible_connection=ssh	ansible_user=zaphod	ansible_ssh_private_key_file=/home/zaphod/.ssh/id_rsa	ansible_become=true
+picl-docker-02	ansible_connection=ssh	ansible_user=zaphod	ansible_ssh_private_key_file=/home/zaphod/.ssh/id_rsa	ansible_become=true
+
+[picl:children]
+storage
+docker

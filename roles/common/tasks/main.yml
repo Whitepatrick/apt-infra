@@ -1,0 +1,27 @@
+---
+# This Playbook runs all the common plays in the deployment
+- name: remove pi user
+  user:
+    name: pi
+    state: absent
+    remove: yes
+
+- name: remove pirate user
+  user:
+    name: pirate
+    state: absent
+    remove: yes
+
+- name: install some basic packages
+  apt: name={{item}} update_cache=true state=latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - vim
+    - git
+    - python-dev
+    - build-essential
+    - tmux
+    - screen
+  tags: packages

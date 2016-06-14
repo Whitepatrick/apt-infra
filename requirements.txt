@@ -1,0 +1,4 @@
+ansible
+setuptools>=11.3
+galaxy-updater
+docker-py

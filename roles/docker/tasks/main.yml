@@ -1,0 +1,23 @@
+---
+# This playbook starts some containers
+- name: install pip
+  apt:
+    name: python-pip
+
+- name: install docker-py
+  pip:
+    name: docker-py
+
+- name: remove pgsql
+  apt: name={{ item }} state=removed
+  with_items:
+    - postgresql-client-9.4
+
+- name: start jenkins container
+  docker:
+    name: picl-jenkins
+    image: jenkins
+    ports:
+      - 8080:8080
+    env:
+      JENKINS_HOME: /var/lib/jenkins

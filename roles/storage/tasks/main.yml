@@ -1,0 +1,35 @@
+---
+# This playbook sets up postgresql on pidrive
+# iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+- name: install postgresql
+  apt: name={{ item }} update_cache=true state=present
+  with_items:
+    - postgresql-client-9.4
+    - postgresql-9.4
+    - postgresql-contrib-9.4
+    - libpq-dev
+    - python-psycopg2
+
+- name: Ensure the PostgreSQL service is running
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+#- name: ensure db is created
+#  sudo_user: postgres
+#  postgresql_db:
+#    name: "{{ db_name }}"
+#    encoding: UTF-8
+#    lc_collate: en_US.UTF-8
+#    lc_ctype: en_US.UTF-8
+#    template: template0
+#    state: present
+
+#- name: ensure user has access to db
+#  postgresql_user:
+#    db: "{{ db_name }}"
+#    name: "{{ db_user }}"
+#    password: "{{ db_password }}"
+#    priv: all
+#    state: present
