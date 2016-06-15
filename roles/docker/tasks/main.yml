@@ -1,19 +1,28 @@
 ---
 # This playbook starts some containers
 - name: install pip
+  tags: docker
   apt:
     name: python-pip
 
+- name: install virtualbox
+  tags: docker
+  apt:
+    name: virtualbox-source
+
 - name: install docker-py
+  tags: docker
   pip:
     name: docker-py
 
 - name: remove pgsql
+  tags: docker
   apt: name={{ item }} state=removed
   with_items:
     - postgresql-client-9.4
 
 - name: start jenkins container
+  tags: docker
   docker:
     name: picl-jenkins
     image: jenkins
