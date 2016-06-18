@@ -6,12 +6,6 @@
     state: absent
     remove: yes
 
-- name: remove pirate user
-  user:
-    name: pirate
-    state: absent
-    remove: yes
-
 - name: update dist packages
   apt:
     update_cache: true

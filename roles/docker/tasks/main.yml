@@ -1,32 +1,21 @@
 ---
 # This playbook starts some containers
-- name: install pip
-  tags: docker
-  apt:
-    name: python-pip
+- name: remove pirate user
+  user:
+    name: pirate
+    state: absent
+    remove: yes
 
-- name: install virtualbox
-  tags: docker
-  apt:
-    name: virtualbox-source
-
-- name: install docker-py
-  tags: docker
-  pip:
-    name: docker-py
-
-- name: remove pgsql
-  tags: docker
-  apt: name={{ item }} state=removed
-  with_items:
-    - postgresql-client-9.4
-
-- name: start jenkins container
+- name: stop containers first
   tags: docker
   docker:
-    name: picl-jenkins
-    image: jenkins
-    ports:
-      - 8080:8080
-    env:
-      JENKINS_HOME: /var/lib/jenkins
+    image: hypriot/rpi-python
+    state: stopped
+
+- name: start consul
+  tags: docker
+  docker:
+    name: py mover
+    image: hypriot/rpi-python
+
+#ansible docker -a "sudo docker exec consul consul join picl-docker-0*"
