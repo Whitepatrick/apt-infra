@@ -1,14 +1,18 @@
 ---
-# This Playbook would deploy the whole mongodb cluster with replication and sharding.
-
 - hosts: all
   roles:
-  - role: common
+    - common
 
 - hosts: storage
   roles:
-    - storage
+    - postgres
+    - ansible-role-nfs
 
 - hosts: docker
   roles:
     - docker
+
+- hosts: local
+  roles:
+    - local
+    - ansible-role-nfs

@@ -8,3 +8,6 @@ picl-docker-02	ansible_connection=ssh	ansible_user=zaphod	ansible_ssh_private_ke
 [picl:children]
 storage
 docker
+
+[local]
+frisbee		ansible_connection=ssh	ansible_user=zaphod	ansible_ssh_private_key_file=/home/zaphod/.ssh/id_rsa	ansible_become=true
