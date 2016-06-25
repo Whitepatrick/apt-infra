@@ -15,4 +15,4 @@
 - hosts: local
   roles:
     - local
-    - ansible-role-nfs
+    - emulationstation

@@ -1,0 +1,31 @@
+---
+- name: install dependencies
+  tags: emulationstation
+  apt: name={{item}} update_cache=true state=present
+  with_items:
+    - libsdl2-dev
+    - libboost-system-dev
+    - libboost-filesystem-dev
+    - libboost-date-time-dev
+    - libboost-locale-dev
+    - libboost1.55-all-dev
+    - libfreeimage-dev
+    - libfreetype6-dev
+    - libeigen3-dev
+    - libcurl4-openssl-dev
+    - libasound2-dev
+    - build-essential
+    - cmake
+
+- name: copy emulationstation deb package
+  tags: emulationstation
+  copy:
+    src: emulationstation_amd64_latest.deb
+    dest: "{{ emulationstation_install_dir }}"
+
+- name: install emulationstation
+  tags: emulationstation
+  apt:
+    deb: "{{ emulationstation_install_dir }}"
+    state: present
+    #install_recommends: yes
