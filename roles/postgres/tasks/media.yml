@@ -1,0 +1,11 @@
+---
+- name: create media database
+  tags: storage
+  postgresql_db:
+    name: media_data
+    owner: "{{ db_user }}"
+    state: present
+
+#- name: run script to set up tables
+#  tags: storage
+#  script: media_data.py

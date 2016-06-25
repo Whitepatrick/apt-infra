@@ -11,21 +11,45 @@
     - libpq-dev
     - python-psycopg2
 
-- name: Ensure the PostgreSQL service is running
+- name: open up postgres connections
+  tags: storage
+  copy:
+    src: pg_hba.conf
+    dest: /etc/postgresql/9.4/main/pg_hba.conf
+    owner: postgres
+    group: postgres
+
+- name: restart postgres
   tags: storage
   service:
     name: postgresql
     state: restarted
     enabled: yes
 
-#- name: ensure database is created
-#  tags: storage
-#  postgresql_db: name={{ db_name }}
+- name: create user
+  tags: storage
+  postgresql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    role_attr_flags: SUPERUSER
+    state: present
 
-#- name: ensure user has access to database
-#  tags: storage
-#  postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }}
+- name: create database
+  tags: storage
+  postgresql_db:
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    name: "{{ db_name }}"
+    owner: "{{ db_user }}"
+    state: present
 
-#- name: set users permissions
-#  tags: storage
-#  postgresql_user: name={{ db_user }} roll_attr_flags=SUPERUSER
+- name: ensure user has access to database
+  tags: storage
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+
+- name: set up media server database
+  tags: storage
+  include: roles/postgres/tasks/media.yml
