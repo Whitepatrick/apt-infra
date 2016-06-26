@@ -1,1 +1,2 @@
-emulationstation_install_dir: /opt/emulationstation.deb
+emulationstation_install_dir: /opt/EmulationStation
+emulationstation_config_dir: $HOME/.emulationstation

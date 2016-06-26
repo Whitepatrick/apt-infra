@@ -17,15 +17,40 @@
     - build-essential
     - cmake
 
-- name: copy emulationstation deb package
+- name: clone emulationstation git repo
+  tags: emulationstation
+  git:
+    repo: https://github.com/Aloshi/EmulationStation.git
+    dest: "{{ emulationstation_install_dir }}"
+  register: gitclone
+
+- name: cmake emulationstation dir
+  tags: emulationstation
+  command: cmake . chdir={{ emulationstation_install_dir }}
+  when: gitclone.changed
+
+- name: make emulationstation dir
+  tags: emulationstation
+  command: make chdir={{ emulationstation_install_dir }}
+  when: gitclone.changed
+
+- name: make install emulationstation
+  tags: emulationstation
+  command: make install chdir={{ emulationstation_install_dir }}
+  when: gitclone.changed
+
+- name: create emulationstation config dir
+  tags: emulationstation
+  file:
+    path: "{{ emulationstation_config_dir }}"
+    owner: frisbee
+    group: frisbee
+    state: directory
+
+- name: move config files
   tags: emulationstation
   copy:
-    src: emulationstation_amd64_latest.deb
-    dest: "{{ emulationstation_install_dir }}"
-
-- name: install emulationstation
-  tags: emulationstation
-  apt:
-    deb: "{{ emulationstation_install_dir }}"
-    state: present
-    #install_recommends: yes
+    src: es_config/
+    dest: "{{ emulationstation_config_dir }}"
+    owner: frisbee
+    group: frisbee
