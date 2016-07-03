@@ -1,0 +1,6 @@
+---
+- hosts: frisbee
+  roles:
+    - frisbee
+    - nfs
+  tags: frisbee

@@ -3,3 +3,5 @@ db_user: zaphod
 db_name: zaphod
 db_password: zaphod
 pg_etc_path: /etc/postgresql/9.4/main/pg_hba.conf
+
+media_db: mdeia_data

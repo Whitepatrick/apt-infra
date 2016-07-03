@@ -12,10 +12,10 @@
     image: hypriot/rpi-python
     state: stopped
 
-- name: start consul
+- name: start py_mover
   tags: docker
   docker:
-    name: py mover
+    name: py_mover
     image: hypriot/rpi-python
 
 #ansible docker -a "sudo docker exec consul consul join picl-docker-0*"

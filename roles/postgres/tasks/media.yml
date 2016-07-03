@@ -2,7 +2,7 @@
 - name: create media database
   tags: storage
   postgresql_db:
-    name: media_data
+    name: "{{ media_db }}"
     owner: "{{ db_user }}"
     state: present
 

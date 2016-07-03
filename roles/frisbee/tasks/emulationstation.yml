@@ -1,5 +1,5 @@
 ---
-- name: install dependencies
+- name: install emulationstation dependencies
   tags: emulationstation
   apt: name={{item}} update_cache=true state=present
   with_items:

@@ -2,17 +2,9 @@
 - hosts: all
   roles:
     - common
+  tags: common
 
-- hosts: storage
-  roles:
-    - postgres
-    - ansible-role-nfs
-
-- hosts: docker
-  roles:
-    - docker
-
-- hosts: local
-  roles:
-    - local
-    - emulationstation
+- include: docker.yml
+- include: frisbee.yml
+- include: local.yml
+- include: storage.yml

@@ -11,7 +11,14 @@
     - libpq-dev
     - python-psycopg2
 
-- name: open up postgres connections
+- name: open postgres listen address
+  tags: storage
+  lineinfile:
+    dest: /etc/postgresql/9.4/main/postgresql.conf
+    regexp: "#listen_addresses ="
+    line: "listen_addresses = '*'"
+
+- name: open up postgres accepted connections
   tags: storage
   copy:
     src: pg_hba.conf
