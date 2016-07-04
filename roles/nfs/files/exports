@@ -13,3 +13,4 @@
 /srv/movies *(rw,sync,no_root_squash)
 /srv/tv *(rw,sync,no_root_squash)
 /srv/games *(rw,sync,no_root_squash)
+/srv/images *(rw,sync,no_root_squash)
