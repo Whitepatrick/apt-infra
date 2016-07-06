@@ -1,0 +1,40 @@
+---
+- name: drop jenkins repo
+  copy:
+    src: apt_repo/jenkins.list
+    dest: /etc/apt/sources.list.d/jenkins.list
+  tags: jenkins
+
+- name: install jenkins apt-key
+  apt_key:
+    url: http://pkg.jenkins.io/debian/jenkins.io.key
+    state: present
+  tags: jenkins
+
+- name: install jenkins
+  apt:
+    name: jenkins
+    state: present
+    update_cache: yes
+  tags: jenkins
+
+- name: turn off jenkins security
+  copy:
+    src: jenkins/config.xml
+    dest: /var/lib/jenkins/config.xml
+  tags: jenkins
+
+- name: turn off jenkins 2.x setup wizard
+  lineinfile:
+    dest: /etc/default/jenkins
+    regexp: '^#JAVA_ARGS='
+    line: 'JAVA_ARGS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
+  tags: jenkins
+
+# blue ocean config
+
+#- name: restart jenkins service
+#  service:
+#    name: jenkins
+#    state: restarted
+#  tags: jenkins

@@ -1,0 +1,16 @@
+---
+- name: drop beats deb packages
+  copy:
+    src: beats/
+    dest: /opt/beats/
+  tags: beats
+
+- name: install filebeat
+  apt:
+    deb: /opt/beats/filebeat_1.2.3_amd64.deb
+    state: present
+    force: yes
+  tags: beats
+
+- name: drop filebeat config
+  copy: filebeat.yml

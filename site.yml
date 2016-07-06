@@ -1,9 +1,4 @@
 ---
-- hosts: all
-  roles:
-    - common
-  tags: common
-
 - include: docker.yml
 - include: frisbee.yml
 - include: local.yml

@@ -1,0 +1,12 @@
+---
+- name: install java (lots of stuff will need it)
+  apt:
+    name: openjdk-7-jdk
+    state: present
+  tags: craptop
+
+- include: elk.yml
+  tags: craptop
+
+- include: jenkins.yml
+  tags: craptop

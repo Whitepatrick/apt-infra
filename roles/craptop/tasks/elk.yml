@@ -1,0 +1,80 @@
+---
+# drop elasticsearch config
+- name: install elk apt-key
+  apt_key:
+    url: https://packages.elastic.co/GPG-KEY-elasticsearch
+    state: present
+  tags: elk
+
+- name: drop elasticsearch repo
+  copy:
+    src: apt_repo/elasticsearch.list
+    dest: /etc/apt/sources.list.d/elasticsearch.list
+  tags: elk
+
+- name: install elasticsearch package
+  apt:
+    name: elasticsearch
+    update_cache: true
+    state: present
+  tags: elk
+
+- name: ensure elasticsearch is running
+  service:
+    name: elasticsearch
+    state: started
+  tags: elk
+
+# install logstash
+
+- name: drop logstash repo
+  copy:
+    src: apt_repo/logstash.list
+    dest: /etc/apt/sources.list.d/logstash.list
+  tags: elk
+
+- name: install logstash
+  apt:
+    name: logstash
+    update_cache: true
+    state: present
+  tags: elk
+
+- name: sync logstash config files
+  synchronize:
+    src: elk_cfg/logstash/
+    dest: /etc/logstash/conf.d/
+  tags: elk
+
+- name: ensure logstash is running
+  service:
+    name: logstash
+    state: started
+  tags: elk
+
+# install kibana
+
+- name: drop kibana repo
+  copy:
+    src: apt_repo/kibana.list
+    dest: /etc/apt/sources.list.d/kibana.list
+  tags: elk
+
+- name: install kibana
+  apt:
+    name: kibana
+    update_cache: true
+    state: present
+  tags: elk
+
+- name: copy over kibana config
+  copy:
+    src: elk_cfg/kibana.yml
+    dest: /opt/kibana/config/kibana.yml
+  tags: elk
+
+- name: ensure kibana is running
+  service:
+    name: kibana
+    state: restarted
+  tags: elk
