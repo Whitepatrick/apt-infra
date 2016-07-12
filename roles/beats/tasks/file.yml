@@ -1,0 +1,19 @@
+---
+- name: install filebeat
+  apt:
+    deb: /opt/beats/filebeat_1.2.3_amd64.deb
+    state: present
+    force: yes
+  tags: beats
+
+- name: drop filebeat config
+  copy:
+    src: filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+  tags: beats
+
+- name: ensure filebeat is started
+  service:
+    name: filebeat
+    state: restarted
+  tags: beats

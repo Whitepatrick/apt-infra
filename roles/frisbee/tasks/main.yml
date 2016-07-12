@@ -4,6 +4,6 @@
   with_items:
     - vlc
     - kodi
-  tags: frisbee
+    - steam
 
 - include: emulationstation.yml

@@ -1,0 +1,19 @@
+---
+- name: install packetbeat
+  apt:
+    deb: /opt/beats/packetbeat_1.2.3_amd64.deb
+    state: present
+    force: yes
+  tags: beats
+
+- name: drop packetbeat config
+  copy:
+    src: packetbeat.yml
+    dest: /etc/packetbeat/packetbeat.yml
+  tags: beats
+
+- name: ensure packetbeat is started
+  service:
+    name: packetbeat
+    state: restarted
+  tags: beats

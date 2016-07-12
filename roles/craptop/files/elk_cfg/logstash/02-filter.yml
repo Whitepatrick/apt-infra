@@ -1,0 +1,8 @@
+filter {
+  grok {
+    match => { "message" => "%{SYSLOGLINE}" }
+  }
+  date {
+    match => { "timestamp" , "SYSLOGTIMESTAMP"}
+  }
+}

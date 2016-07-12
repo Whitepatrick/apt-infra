@@ -1,7 +1,0 @@
----
-- hosts: storage
-  roles:
-    - common
-    - postgres
-    - beats
-  tags: storage

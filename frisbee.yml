@@ -1,8 +1,0 @@
----
-- hosts: frisbee
-  roles:
-    - common
-    - frisbee
-    - beats
-    - nfs
-  tags: frisbee

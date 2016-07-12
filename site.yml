@@ -1,5 +1,35 @@
 ---
-- include: docker.yml
-- include: frisbee.yml
-- include: local.yml
-- include: storage.yml
+- hosts: all
+  roles:
+    - common
+  tags: common
+
+- hosts: local
+  roles:
+    - local
+    - beats
+  tags: local
+
+- hosts: craptop
+  roles:
+    - craptop
+  tags: craptop
+
+- hosts: docker
+  roles:
+    - docker
+    #- beats
+  tags: docker
+
+- hosts: frisbee
+  roles:
+    - frisbee
+    - beats
+    - nfs
+  tags: frisbee
+
+- hosts: storage
+  roles:
+    - postgres
+    - beats
+  tags: storage

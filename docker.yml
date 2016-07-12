@@ -1,7 +1,0 @@
----
-- hosts: docker
-  roles:
-    - common
-    - docker
-    - beats
-  tags: docker

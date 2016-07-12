@@ -1,6 +1,0 @@
----
-- hosts: craptop
-  roles:
-    - common
-    - craptop
-  tags: craptop

@@ -6,10 +6,18 @@
     state: absent
     remove: yes
 
+- name: stop kibana on craptop
+  service:
+    name: kibana
+    state: stopped
+  when: "'craptop' in group_names"
+  tags: blah
+
 - name: update dist packages
   apt:
     update_cache: true
     upgrade: full
+  tags: blah
 
 - name: install some basic packages
   apt: name={{item}} update_cache=true state=latest
@@ -24,4 +32,11 @@
     - build-essential
     - tmux
     - screen
-  tags: packages
+  tags: blah
+
+- name: turn kibana back on for craptop
+  service:
+    name: kibana
+    state: started
+  when: "'craptop' in group_names"
+  tags: blah

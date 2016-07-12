@@ -1,0 +1,19 @@
+---
+- name: install topbeat
+  apt:
+    deb: /opt/beats/topbeat_1.2.3_amd64.deb
+    state: present
+    force: yes
+  tags: beats
+
+- name: drop topbeat config
+  copy:
+    src: topbeat.yml
+    dest: /etc/topbeat/topbeat.yml
+  tags: beats
+
+- name: ensure topbeat is started
+  service:
+    name: topbeat
+    state: restarted
+  tags: beats
